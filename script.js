@@ -277,10 +277,23 @@ function clearError() {
 
 document.getElementById("article").addEventListener("input", clearError);
 
+/*
 
+// Vide au chargement normal (optionnel)
 window.addEventListener("load", () => {
-    document.getElementById("customIp").value = "";
+    const ip = document.getElementById("customIp");
+    if (ip) ip.value = "";
 });
+
+// Vide quand on revient en arrière depuis l'historique
+window.addEventListener("pageshow", (event) => {
+    if (event.persisted) {
+        const ip = document.getElementById("customIp");
+        if (ip) ip.value = "";
+    }
+});*/
+
+
 
 ``
 

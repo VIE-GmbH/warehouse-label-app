@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+    <!-- <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0"> -->
+
+
     <title>Quick Label</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
@@ -25,7 +30,7 @@
     </select>
 
     <label>Oder eine neue IP eingeben:</label>
-    <input type="text" id="customIp" placeholder="z.B: 10.152.4.59" autocomplete="off">
+    <input type="text" id="customIp" placeholder="z.B: 10.152.4.59">
 
     <button onclick="goToApp()">Weiter</button>
 
@@ -42,6 +47,13 @@
             // Redirection
             window.location.href = "index2.html";
         }
+    </script>
+
+    <script>
+    window.addEventListener("pageshow", () => {
+        const ip = document.getElementById("customIp");
+        if (ip) ip.value = "";
+    });
     </script>
 
     <script src="script.js"></script>
