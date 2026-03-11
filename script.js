@@ -241,7 +241,7 @@ function printLabel() {
     .catch(err => {
         // Une erreur = impression non envoyée
         printed = false;
-        alert("Druckfehler: " + err);
+        // alert("Druckfehler: " + err);
     });
 
     // Sécurité : si fetch reste bloqué mais PAS d'erreur après 300ms → impression OK
