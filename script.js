@@ -71,159 +71,6 @@ function generateQR() {
 }
 
 // ----------------------------
-// Visualisation de l'etiquette
-// ----------------------------
-/*
-function updatePreview() {
-    const article = document.getElementById("article").value.trim();
-    const amount = document.getElementById("amount").value.trim();
-    
-    const preview = document.getElementById("labelPreview");
-
-    preview.innerHTML = `
-        <!-- Logo Detectomat -->
-        <img src="Logo_Detectomat.png" style="width:100px; position:absolute; top:10px; left:10px;">
-        
-        <!-- Texte Artikelnummer -->
-        <div style="
-            position:absolute;
-            top:60px; left:10px;
-            font-weight:bold;
-            font-size:12px;
-        ">Artikelnummer:</div>
-
-        <div style="
-            position:absolute;
-            top:60px; left:110px;
-            font-size:12px;
-        ">${article}</div>
-
-        <!-- Texte Menge -->
-        <div style="
-            position:absolute;
-            top:90px; left:10px;
-            font-weight:bold;
-            font-size:12px;
-        ">Menge:</div>
-
-        <div style="
-            position:absolute;
-            top:90px; left:110px;
-            font-size:12px;
-        ">${amount} Stk</div>
-
-        <!-- QR Code -->
-        <div style="position:absolute; top:10px; right:10px;">
-            <div id="previewQR"></div>
-        </div>
-
-        <!-- Logo CE -->
-        <img src="logo_CE.png" style="width:19px; position:absolute;top:90px; right:10px;">
-        
-    `;
-
-    // QR Code dans l'étiquette
-    const qrDiv = document.getElementById("previewQR");
-    qrDiv.innerHTML = "";
-    new QRCode(qrDiv, {
-        text: `${article}`,
-        width: 70,
-        height: 70
-    });
-    
- /*   // Ajouter le nom SANS casser le QR
-    const name = getArticleName(article);
-    const nameBox = document.getElementById("articleNamePreview");
-
-    if (name !== "") {
-        nameBox.textContent = name;
-    } else {
-        nameBox.textContent = "";
-    } 
-} */
-
-function updatePreview() {
-    const article = document.getElementById("article").value.trim();
-    const amount  = document.getElementById("amount").value.trim();
-    const preview = document.getElementById("labelPreview");
-
-    // Prépare le conteneur
-    preview.style.position = "relative";
-    preview.innerHTML = ""; // on repart de zéro à chaque clic
-
-    // --- Logo Detectomat ---
-    const logoDet = document.createElement("img");
-    logoDet.src = "Logo_Detectomat.png";
-    logoDet.style.cssText = "width:100px; position:absolute; top:10px; left:10px;";
-    preview.appendChild(logoDet);
-
-    // --- Libellé "Artikelnummer:" ---
-    const lblArt = document.createElement("div");
-    lblArt.textContent = "Artikelnummer:";
-    lblArt.style.cssText = "position:absolute; top:70px; left:10px; font-weight:bold; font-size:12px;";
-    preview.appendChild(lblArt);
-
-    // --- Valeur article ---
-    const valArt = document.createElement("div");
-    valArt.textContent = article;
-    valArt.style.cssText = "position:absolute; top:70px; left:110px; font-size:12px;";
-    preview.appendChild(valArt);
-
-    // --- Libellé "Menge:" ---
-    const lblQty = document.createElement("div");
-    lblQty.textContent = "Menge:";
-    lblQty.style.cssText = "position:absolute; top:90px; left:10px; font-weight:bold; font-size:12px;";
-    preview.appendChild(lblQty);
-
-    // --- Valeur quantité ---
-    const valQty = document.createElement("div");
-    valQty.textContent = `${amount} Stk`;
-    valQty.style.cssText = "position:absolute; top:90px; left:110px; font-size:12px;";
-    preview.appendChild(valQty);
-
-    // --- Zone QR en haut à droite ---
-    const qrWrap = document.createElement("div");
-    qrWrap.style.cssText = "position:absolute; top:10px; right:10px;";
-    const qrDiv = document.createElement("div");
-    qrDiv.id = "previewQR";
-    qrWrap.appendChild(qrDiv);
-    preview.appendChild(qrWrap);
-
-    // --- Logo CE (si tu le veux dans l’aperçu) ---
-    const logoCE = document.createElement("img");
-    logoCE.src = "logo_CE.png";
-    logoCE.style.cssText = "width:13px; position:absolute; top:54px; right:72px;";
-    preview.appendChild(logoCE);
-
-    // --- Conteneur pour le nom d’article (on le remplit ensuite) ---
-    const nameBox = document.createElement("div");
-    nameBox.id = "articleNamePreview";
-    nameBox.style.cssText = "position:absolute; bottom:10px; left:10px; font-size:12px;";
-    preview.appendChild(nameBox);
-
-    // --- Génération du QR (toujours) ---
-    try {
-        qrDiv.innerHTML = ""; // clean si on régénère
-        new QRCode(qrDiv, {
-            text: article,   // tu voulais le numéro seul dans le QR
-            width: 55,
-            height: 55
-        });
-        showPrintSuccess();
-    } catch (e) {
-        console.error("Erreur génération QR:", e);
-    }
-
-    if (window.dbReady) {
-        const name = getArticleName(article); // ta fonction
-        nameBox.textContent = name || "";     // si vide → rien
-    } else {
-         nameBox.textContent = ""; // DB pas prête → on n’affiche pas
-    }
-}
-
-
-// ----------------------------
 // Build of ZPL 
 // ----------------------------
 function buildZPL() {
@@ -289,6 +136,9 @@ function printLabel() {
     const article = document.getElementById("article").value.trim();
     const amount = document.getElementById("amount").value.trim();
     let printed = false;
+
+    const name = getArticleName(article); // ta fonction
+    
     const zpl = buildZPL();
 
     fetch(`http://${printerIP}:9100`, {
@@ -383,5 +233,90 @@ function buildZPL() {
 ^GFA,120,120,4,,::::003I03,01F001F807F003F80F8007C,1EI0F,1C001E,38001C,380038,3I03C4,3I03FE,:3I038,380038,38001C,1C001E,1EI0F,0F8007C,07F003F801F001F8003I01,,::::^FS
 ^XZ
 `;
+}
+*/
+
+/*
+// ----------------------------
+// Visualisation de l'etiquette
+// ----------------------------
+function updatePreview() {
+    const article = document.getElementById("article").value.trim();
+    const amount  = document.getElementById("amount").value.trim();
+    const preview = document.getElementById("labelPreview");
+
+    // Prépare le conteneur
+    preview.style.position = "relative";
+    preview.innerHTML = ""; // on repart de zéro à chaque clic
+
+    // --- Logo Detectomat ---
+    const logoDet = document.createElement("img");
+    logoDet.src = "Logo_Detectomat.png";
+    logoDet.style.cssText = "width:100px; position:absolute; top:10px; left:10px;";
+    preview.appendChild(logoDet);
+
+    // --- Libellé "Artikelnummer:" ---
+    const lblArt = document.createElement("div");
+    lblArt.textContent = "Artikelnummer:";
+    lblArt.style.cssText = "position:absolute; top:70px; left:10px; font-weight:bold; font-size:12px;";
+    preview.appendChild(lblArt);
+
+    // --- Valeur article ---
+    const valArt = document.createElement("div");
+    valArt.textContent = article;
+    valArt.style.cssText = "position:absolute; top:70px; left:110px; font-size:12px;";
+    preview.appendChild(valArt);
+
+    // --- Libellé "Menge:" ---
+    const lblQty = document.createElement("div");
+    lblQty.textContent = "Menge:";
+    lblQty.style.cssText = "position:absolute; top:90px; left:10px; font-weight:bold; font-size:12px;";
+    preview.appendChild(lblQty);
+
+    // --- Valeur quantité ---
+    const valQty = document.createElement("div");
+    valQty.textContent = `${amount} Stk`;
+    valQty.style.cssText = "position:absolute; top:90px; left:110px; font-size:12px;";
+    preview.appendChild(valQty);
+
+    // --- Zone QR en haut à droite ---
+    const qrWrap = document.createElement("div");
+    qrWrap.style.cssText = "position:absolute; top:10px; right:10px;";
+    const qrDiv = document.createElement("div");
+    qrDiv.id = "previewQR";
+    qrWrap.appendChild(qrDiv);
+    preview.appendChild(qrWrap);
+
+    // --- Logo CE (si tu le veux dans l’aperçu) ---
+    const logoCE = document.createElement("img");
+    logoCE.src = "logo_CE.png";
+    logoCE.style.cssText = "width:13px; position:absolute; top:54px; right:72px;";
+    preview.appendChild(logoCE);
+
+    // --- Conteneur pour le nom d’article (on le remplit ensuite) ---
+    const nameBox = document.createElement("div");
+    nameBox.id = "articleNamePreview";
+    nameBox.style.cssText = "position:absolute; bottom:10px; left:10px; font-size:12px;";
+    preview.appendChild(nameBox);
+
+    // --- Génération du QR (toujours) ---
+    try {
+        qrDiv.innerHTML = ""; // clean si on régénère
+        new QRCode(qrDiv, {
+            text: article,   // tu voulais le numéro seul dans le QR
+            width: 55,
+            height: 55
+        });
+        showPrintSuccess();
+    } catch (e) {
+        console.error("Erreur génération QR:", e);
+    }
+
+    if (window.dbReady) {
+        const name = getArticleName(article); // ta fonction
+        nameBox.textContent = name || "";     // si vide → rien
+    } else {
+         nameBox.textContent = ""; // DB pas prête → on n’affiche pas
+    }
 }
 */
