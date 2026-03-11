@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Quick Label</title>
-
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
 
@@ -15,56 +15,33 @@
 </head>
 
 <body>
-    <h1>Lageretiketten-Generator</h1>
 
-    <label>Artikelnummer</label>
-    <input id="article" type="text">
+    <h1>Verbindung zum Drucker</h1>
 
-    <label>Menge</label>
-    <input id="amount" type="number">
+    <label>Registrierte IP-Adresse:</label>
+    <select id="savedIp">
+        <option value="10.152.4.59">10.152.4.59</option>
+    </select>
 
-    <button onclick="generateQR()">QR-Code generieren</button>
+    <label>Oder eine neue IP eingeben:</label>
+    <input type="text" id="customIp" placeholder="z.B: 10.152.4.59">
 
-    
-    <div id="labelPreview" style="
-        width: 264px;      /* 7 cm */
-        height: 151px;     /* 4 cm */
-        border: 3px solid #555;
-        padding: 0;
-        margin-top: 20px;
-        position: relative;
-        background: white;
-        display: none;     /* caché au départ */
-        font-family: Arial, sans-serif;
-    ">
-    </div>
+    <button onclick="goToApp()">Weiter</button>
 
-    <div id="qrcode"></div>
+    <script>
+        function goToApp() {
+            let saved = document.getElementById("savedIp").value;
+            let custom = document.getElementById("customIp").value;
 
-    <button onclick="printLabel()">Etikett drucken</button>
+            let ip = custom !== "" ? custom : saved;
 
-    <script src="script.js"></script>
+            // Sauvegarde dans localStorage
+            localStorage.setItem("printerIP", ip);
 
-    
-    <!-- Message de succès -->
-    <div id="printSuccess" style="
-        display:none;
-        position:fixed;
-        bottom:20px;
-        right:20px;
-        background:#4CAF50;
-        color:white;
-        padding:12px 18px;
-        border-radius:6px;
-        font-size:16px;
-        font-weight:bold;
-        box-shadow:0 2px 10px rgba(0,0,0,0.3);
-        z-index:9999;
-    ">
-        Etikett erfolgreich gedruckt !
-    </div>
-
-    <div id="errorBox" style="display:none; color:#b00020; background:#fde7e9; padding:8px; border-radius:6px; margin:8px 0; font-weight:600; text-align: center;"></div>
+            // Redirection
+            window.location.href = "index2.html";
+        }
+    </script>
 
 </body>
 </html>

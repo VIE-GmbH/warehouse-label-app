@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Quick Label</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Lageretiketten-Generator</h1>
+
+    <label>Artikelnummer</label>
+    <input id="article" type="text">
+
+    <label>Menge</label>
+    <input id="amount" type="number">
+
+    <button onclick="generateQR()">QR-Code generieren</button>
+
+    
+    <div id="labelPreview" style="
+        width: 264px;      /* 7 cm */
+        height: 151px;     /* 4 cm */
+        border: 3px solid #555;
+        padding: 0;
+        margin-top: 20px;
+        position: relative;
+        background: white;
+        display: none;     /* caché au départ */
+        font-family: Arial, sans-serif;
+    ">
+    </div>
+
+    <div id="qrcode"></div>
+
+    <button onclick="printLabel()">Etikett drucken</button>
+
+    <script src="script.js"></script>
+
+    
+    <!-- Message de succès -->
+    <div id="printSuccess" style="
+        display:none;
+        position:fixed;
+        bottom:20px;
+        right:20px;
+        background:#4CAF50;
+        color:white;
+        padding:12px 18px;
+        border-radius:6px;
+        font-size:16px;
+        font-weight:bold;
+        box-shadow:0 2px 10px rgba(0,0,0,0.3);
+        z-index:9999;
+    ">
+        Etikett erfolgreich gedruckt !
+    </div>
+
+    <div id="errorBox" style="display:none; color:#b00020; background:#fde7e9; padding:8px; border-radius:6px; margin:8px 0; font-weight:600; text-align: center;"></div>
+
+</body>
+</html>
