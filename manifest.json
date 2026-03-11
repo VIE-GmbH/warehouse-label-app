@@ -1,0 +1,9 @@
+{
+  "name": "Quick Label",
+  "short_name": "WarehouseQR",
+  "start_url": "./start.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "description": "App for generating and printing warehouse QR labels",
+  "icons": []
+}
