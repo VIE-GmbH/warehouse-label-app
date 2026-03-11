@@ -224,7 +224,7 @@ function printLabel() {
     
     const zpl = buildZPL();
 
-    updatePreview();
+    generateQR();
 
     fetch(`http://${printerIP}:9100`, {
         method: "POST",
