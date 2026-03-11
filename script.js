@@ -226,7 +226,7 @@ function printLabel() {
 
     generateQR();
 
-    fetch(`http://${printerIP}:9100`, {
+    /*fetch(`http://${printerIP}:9100`, {
         method: "POST",
         headers: {
             "Content-Type": "text/plain"
@@ -242,7 +242,7 @@ function printLabel() {
         // Une erreur = impression non envoyée
         printed = false;
         // alert("Druckfehler: " + err);
-    });
+    }); */
 
     // Sécurité : si fetch reste bloqué mais PAS d'erreur après 300ms → impression OK
     setTimeout(() => {
