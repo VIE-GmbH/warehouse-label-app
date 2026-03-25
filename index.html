@@ -19,10 +19,10 @@
 
     <h1>Verbindung zum Drucker</h1>
 
-    <label>Registrierte IP-Adresse:</label>
+    <label>Registrierte Drucker:</label>
     <select id="savedIp">
-        <option value="10.152.2.30">10.152.2.30</option>
-        <option value="10.152.2.33">10.152.2.33</option>
+        <option value="10.152.2.39">ZD621-MC-01</option> // ZD621-MC-01
+        <option value="10.152.2.38">ZD621-MC-04</option> // ZD621-MC-04
     </select>
 
     <label>Oder eine neue IP eingeben:</label>
@@ -34,7 +34,7 @@
         function goToApp() {
             let saved = document.getElementById("savedIp").value;
             let custom = document.getElementById("customIp").value;
-
+            
             let ip = custom !== "" ? custom : saved;
 
             // Sauvegarde dans localStorage
