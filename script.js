@@ -180,7 +180,7 @@ function buildZPL() {
 
 ### Artikelnummer value
 ^FO31,218 
-^A0N,60,60          
+^A0N,57,57          
 ^FD${article}^FS
 
 ### Menge label 
