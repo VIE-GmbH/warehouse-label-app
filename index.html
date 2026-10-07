@@ -27,15 +27,15 @@
         <option value="10.152.2.38">ZD621-MC-04</option> // ZD621-MC-04
     </select>
 
-    <!-- <label>Oder eine neue IP eingeben:</label>
-    <input type="text" id="customIp" placeholder="z.B: 10.152.4.59"> -->
+    <!-- <label>Oder eine neue IP eingeben:</label> -->
+    <!-- <input type="text" id="customIp" placeholder="z.B: 10.152.4.59"> -->
 
     <button onclick="goToApp()">Weiter</button>
 
     <script>
         function goToApp() {
             let saved = document.getElementById("savedIp").value;
-            let custom = document.getElementById("customIp").value;
+            let custom = "";/*document.getElementById("customIp").value;*/
             
             let ip = custom !== "" ? custom : saved;
 
